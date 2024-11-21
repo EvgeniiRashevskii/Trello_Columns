@@ -33,7 +33,6 @@ const Column = {
         columnElement.addEventListener('dragover', Column.dragover);
         columnElement.addEventListener('dragleave', Column.dragleave);
 
-        columnElement.addEventListener('dragover', Column.dragover);
         columnElement.addEventListener('drop', Column.drop);
 
     },
@@ -41,22 +40,32 @@ const Column = {
         Column.dragged = this;
         Column.dragged.classList.add('dragged');
         event.stopPropagation();
+
+        document
+            .querySelectorAll('.note')
+            .forEach(noteElement => noteElement.removeAttribute('draggable'))
     },
 
     dragend(event) {
-        Column.dragged = null;
         Column.dragged.classList.remove('dragged');
+        Column.dragged = null;
+
+        document
+            .querySelectorAll('.note')
+            .forEach(noteElement => noteElement.setAttribute('draggable', true))
     },
 
     dragenter(event) {
         if (!Column.dragged || Column.dragged === this) {
             return;
         }
+        this.classList.add('under')
         console.log('dragenter')
     },
 
     dragover(event) {
         event.preventDefault();
+        event.stopPropagation();
         if (!Column.dragged || Column.dragged === this) {
             return;
         }
@@ -67,19 +76,26 @@ const Column = {
         if (!Column.dragged || Column.dragged === this) {
             return;
         }
+        this.classList.remove('under')
         console.log('dragleave')
-    },
-
-
-    dragover(event) {
-        event.preventDefault()
     },
 
     drop() {
         if (Note.dragged) {
             return this.querySelector('[data-notes]').append(Note.dragged);
         } else if (Column.dragged) {
-            console.log('DROP!!!')
+            const children = Array.from(document.querySelector('.columns').children)
+            const indexA = children.indexOf(this);
+            const indexB = children.indexOf(Column.dragged);
+            console.log(indexA, indexB)
+            if (indexA < indexB) {
+                //insertBefore() добавляет элемент в список дочерних элементов родителя перед указанным элементом.
+                document.querySelector('.columns').insertBefore(Column.dragged, this)
+            }
+
+            else {
+                document.querySelector('.columns').insertBefore(Column.dragged, this.nextElementSibling)
+            }
         }
     }
 }

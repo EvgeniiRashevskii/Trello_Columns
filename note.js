@@ -44,13 +44,14 @@ const Note = {
         event.stopPropagation();
     },
     dragend(event) {
+        event.stopPropagation();
         Note.dragged = null;
         this.classList.remove('dragged');
 
         document.querySelectorAll('.note').forEach(x => x.classList.remove('under'));
-        event.stopPropagation();
     },
     dragenter(event) {
+        event.stopPropagation();
         if (!Note.dragged || this === Note.dragged) {
             return;
         }
@@ -64,6 +65,7 @@ const Note = {
         event.stopPropagation();
     },
     dragleave(event) {
+        event.stopPropagation();
         if (!Note.dragged || this === Note.dragged) {
             return;
         }
