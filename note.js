@@ -48,6 +48,7 @@ const Note = {
         this.classList.remove('dragged');
 
         document.querySelectorAll('.note').forEach(x => x.classList.remove('under'));
+        event.stopPropagation();
     },
     dragenter(event) {
         if (!Note.dragged || this === Note.dragged) {
