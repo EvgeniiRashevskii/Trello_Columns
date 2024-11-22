@@ -69,6 +69,9 @@ const Column = {
         event.stopPropagation();
 
         if (Column.dragged === this) {
+            if(Column.dropped){
+                Column.dropped.classList.remove('under')
+            }
             Column.dropped = null
         }
 
