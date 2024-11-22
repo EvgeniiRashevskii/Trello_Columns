@@ -2,6 +2,7 @@ const Column = {
     idCounter: 4,
 
     dragged: null,
+    dropped: null,
 
     process(columnElement) {
         const spanAction_addNote = columnElement.querySelector('[data-action-addNote]')
@@ -55,30 +56,41 @@ const Column = {
             .forEach(noteElement => noteElement.setAttribute('draggable', true))
     },
 
-    dragenter(event) {
-        if (!Column.dragged || Column.dragged === this) {
-            return;
-        }
-        this.classList.add('under')
-        console.log('dragenter')
-    },
+    // dragenter(event) {
+    //     if (!Column.dragged || Column.dragged === this) {
+    //         return;
+    //     }
+    //     this.classList.add('under')
+    //     console.log('dragenter')
+    // },
 
     dragover(event) {
         event.preventDefault();
         event.stopPropagation();
+
+        if (Column.dragged === this) {
+            Column.dropped = null
+        }
+
         if (!Column.dragged || Column.dragged === this) {
             return;
-        }
-        console.log('dragover')
+        };
+
+        Column.dropped = this;
+        document
+            .querySelectorAll('.column')
+            .forEach(columnElement => columnElement.classList.remove('under'))
+
+        this.classList.add('under');
     },
 
-    dragleave(event) {
-        if (!Column.dragged || Column.dragged === this) {
-            return;
-        }
-        this.classList.remove('under')
-        console.log('dragleave')
-    },
+    // dragleave(event) {
+    //     if (!Column.dragged || Column.dragged === this) {
+    //         return;
+    //     }
+    //     this.classList.remove('under')
+    //     console.log('dragleave')
+    // },
 
     drop() {
         if (Note.dragged) {
