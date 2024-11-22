@@ -50,6 +50,7 @@ const Column = {
     dragend(event) {
         Column.dragged.classList.remove('dragged');
         Column.dragged = null;
+        Column.dropped = null;
 
         document
             .querySelectorAll('.note')
@@ -69,7 +70,7 @@ const Column = {
         event.stopPropagation();
 
         if (Column.dragged === this) {
-            if(Column.dropped){
+            if (Column.dropped) {
                 Column.dropped.classList.remove('under')
             }
             Column.dropped = null
@@ -111,6 +112,10 @@ const Column = {
             else {
                 document.querySelector('.columns').insertBefore(Column.dragged, this.nextElementSibling)
             }
+
+            document
+                .querySelectorAll('.column')
+                .forEach(columnElement => columnElement.classList.remove('under'))
         }
     }
 }
