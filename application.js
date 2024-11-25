@@ -36,6 +36,9 @@ const Application = {
                 object.notes.items.push(note)
             })
 
+        const json = JSON.stringify(object)
+        localStorage.setItem('trello', json)
+
         return object;
     },
 
