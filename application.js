@@ -43,6 +43,9 @@ const Application = {
     },
 
     load() {
-
+        if(localStorage.getItem('trello')){
+            return
+        }
+        const object = JSON.parse(localStorage.getItem('trello'))
     }
 }
