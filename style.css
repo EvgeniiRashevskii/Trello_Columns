@@ -16,6 +16,7 @@ body {
     height: 100vh;
     padding: 10px;
     margin: 10px;
+    position: relative;
 }
 
 .row {
@@ -127,4 +128,13 @@ body {
 
 .note.under {
     opacity: 0.5;
+}
+
+.basket {
+    width: 200px;
+    height: 200px;
+    background-color: black;
+    position: absolute;
+    bottom: 40%;
+    right: 20px;
 }
