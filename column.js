@@ -67,7 +67,7 @@ const Column = {
         Column.dragged.classList.add('dragged');
         event.stopPropagation();
 
-        document
+        document 
             .querySelectorAll('.note')
             .forEach(noteElement => noteElement.removeAttribute('draggable'))
     },
